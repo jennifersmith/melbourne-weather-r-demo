@@ -1,0 +1,117 @@
+
+
+```{r}
+    x <- 3
+    x 
+```
+
+
+```{r}
+ z
+```
+
+```{r}
+    x <- seq(10)
+    x <- seq(from=0,by=10,length=10)
+```
+
+
+```{r}
+    x <- rnorm(10)
+    x <- 3
+    y <- x+2
+```
+
+
+```{r}
+    x <- 3
+    len(x)
+```
+
+```{r}
+    x <- c(1,2,3,4,5)
+
+    x
+```
+
+```{r}
+    y <- x+3
+    y
+```
+
+```{r}
+    
+    x <- seq(100)
+    
+    y <- x^2 + 4
+```
+
+```{r}
+   
+    m <- matrix(c(1,2,3,4,5,6), nrow=2)
+    m
+
+    myList <- list(x=2, y=2)
+    myList$x
+    
+```
+
+
+```{r} 
+x <- "character data"
+x
+x <- 2.2
+x
+factor(c('Red', 'Green', 'Blue'))
+```
+
+```{r}
+ 
+
+    x <- seq(from=-1,to=1,length=1000)
+    
+    y <- x^2 + 4
+    
+    plot(x,y)
+
+```
+
+ 
+```{r}
+
+    plot(x,y,type='l',col='green')
+
+    
+    n <- rnorm(100)
+    plot(n)
+    barplot(n)
+    hist(n)
+    boxplot(n)
+```
+
+```{r}
+  
+    t <- seq(from=-10,to=10, length=1000)
+    x <- sin(t)^3
+    y <- 13 * cos(t) - 5* (cos(2 * t)) - cos(4 * t)
+    plot(x,y, type='l')
+    
+    polygon(x,y,col='red')
+```
+
+
+```{r}
+    my.data <- data.frame(col=rep(c('red','green'),times=120), size=rpois(120, 100))
+    my.data$col
+    
+    #View(my.data)
+    
+    my.data$shape <- rep(c('triangle', 'circle', 'square'))
+```
+
+
+```{r}
+    red.triangles <- my.data[my.data$shape == 'circle' && my.data$col == 'red',]
+    
+    summary(red.triangles)
+```
