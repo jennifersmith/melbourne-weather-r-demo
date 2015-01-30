@@ -14,24 +14,25 @@ load.and.clean = function(){
   return(melb.temperature.data)
 }
 
-# a function to apply Jen's assessment for a particular month from step 4
-get.jens.assessment = function(month=NULL){
+# a function to apply Jen's assessment from step 4
+get.jens.assessment = function(){
   melb.temperature.data <- load.and.clean()
-  melb.temperature.data$Jens.assessment <- cut(melb.temperature.data$Maximum.temperature, breaks=c(10,22,28,36,40,50), labels=c('Kinda Chilly', 'Pleasantly cool', 'Nicely warm', 'Kinda hot', 'Arrrgh the Heat!'))
-  melb.temperature.data[is.null(month) || melb.temperature.data$Month == month,]
+  melb.temperature.data$Jens.assessment <- cut(melb.temperature.data$Maximum.temperature, breaks=c(0,15,22,28,36,40,50), labels=c('Brrr', 'Kinda Chilly', 'Pleasantly cool', 'Nicely warm', 'Kinda hot', 'Arrrgh the Heat!'))
+  return(melb.temperature.data)
 }
 
 show.month = function(month){
-  my.data <- get.jens.assessment(month)
+  my.data <- get.jens.assessment()
+  my.data <- my.data[my.data$Month == month,]
   counts <- table(my.data$Jens.assessment, my.data$Year)
   my.data <- as.data.frame(counts)
-  
+  print(my.data)
   names(my.data)<-c('Assessment', 'Year', 'Freq')
   
   ggplot(data = my.data , aes(x = Year, y = Freq, fill = Assessment)) + 
     geom_bar(stat='identity')  + 
     coord_flip() +
-    scale_fill_manual(values=rev(brewer_pal(type='div',palette=7)(5))) +
+    scale_fill_manual(values=rev(brewer_pal(type='div',palette=7)(6))) +
     labs(title = "Types of day by year")
 }
 
@@ -48,6 +49,6 @@ yesterdays.weather = function(){
   ggplot(data = my.data , aes(x = Month, y = Freq, fill = Assessment)) + 
     geom_bar(stat='identity')  + 
     coord_flip() +
-    scale_fill_manual(values=rev(brewer_pal(type='div',palette=7)(5))) +
+    scale_fill_manual(values=rev(brewer_pal(type='div',palette=7)(6))) +
     labs(title = "Types of day by month")
 }
