@@ -4,7 +4,7 @@
 
 ```{r}
     x <- 3
-    x 
+    x
 ```
 
  We don't have to declare them with a special keyword, nor do we have
