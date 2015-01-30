@@ -1,0 +1,200 @@
+# Basic tour of the R language
+## Variable assignment and function invocation
+ In R, we can create variables by simply assigning them a value.
+
+```{r}
+    x <- 3
+    x 
+```
+
+ We don't have to declare them with a special keyword, nor do we have
+ to give them a type.
+
+ If we try and access a variable that doesn't exist, we are quickly
+ told that we are going down the wrong path!
+ 
+ ```{r}
+ z
+ ```
+
+ Note that the assignment is via an arrow. This is a nice peculiar
+ feature of R.
+
+ Actually a regular old = sign does work, apart from some strange cases
+ where it does not. These reasosn make sense when you start to
+ understand some more advanced parts of the language, or so I am told.
+
+ To be honest, I generally go for the = sign, but I know that I have
+ been hurt by this a few times so it really is best to stick with the arrows.
+
+Similar to other langauges, we can call and use functions. R has a lot
+of useful built in functions for dealing with numeric data and
+vectors.
+
+This one produces a sequence of numbers up to the value you give it.
+
+ The standard with R seems to be that there are shorthand versions of
+ the functions but if you want to give it more or different parameters,
+ you have to give them names like this.
+
+```{r}
+    x <- seq(10)
+    x <- seq(from=0,by=10,length=10)
+```
+
+ There are a whole heap of other standard functions, like rnorm
+ here that will give us 10 values from a normal
+ distribution. Unsuprisingly, regular arithmetic operators are also available!
+
+```{r}
+    x <- rnorm(10)
+    x <- 3
+    y <- x+2
+```
+
+## Data types
+
+An important concept to understand when learning R is that although these look like
+regular numbers or integers, our basic core type is actually a vector.
+
+```{r}
+    x <- 3
+    len(x)
+```
+
+So here, although it looks like X is 3, it's really better to think
+about x being a vector of length 1.
+
+We can create longer vectors with the c 'combine' function.  You maybe
+could see this as similar to array construction with angle braces in
+other languages like ruby.
+
+
+```{r}
+    x <- c(1,2,3,4,5)
+
+    x
+```
+
+This might seem strange, but it's kind of cool because it means that
+any function or operation with which works on 1 value is generally
+able to work on N values.
+
+For example check out the result of the following operation from
+before when x is a vector... it's another vector.
+
+```{r}
+    y <- x+3
+    y
+```
+
+What this means is that you can start to make code that looks
+an awful lot like the symbols we might use on paper perform as
+it should, like quadratic equations we probably all covered at school.
+
+```{r}
+    
+    x <- seq(100)
+    
+    y <- x^2 + 4
+```
+
+Of course there are several other fundamental data types,
+including the more sophisticated relation of the vector -
+matrices and lists that behave a little like hashes/dictionaries.
+
+```{r}
+   
+    m <- matrix(c(1,2,3,4,5,6), nrow=2)
+    m
+
+    myList <- list(x=2, y=2)
+    myList$x
+    
+```
+
+The at the more fundamental level, we have numeric data,
+characters and things called 'factors'. Which are similar to
+enumerations. These can come in pretty handy as you might see
+later for categorical data.
+
+```{r} 
+x <- "character data"
+x
+x <- 2.2
+x
+factor(c('Red', 'Green', 'Blue'))
+```
+## Plotting
+
+And of course, it wouldn't be stats without any kind of plotting. R has some simple, but powerful basic plotting support built in.
+
+The basic plot() function covers a lot of bases.
+```{r}
+ 
+
+    x <- seq(from=-1,to=1,length=1000)
+    
+    y <- x^2 + 4
+    
+    plot(x,y)
+
+```
+
+See also ```barplot```, ```hist```, ```boxplot```
+
+ We can tweak the parameters a little bit - the documentation covers
+ this in more detail.
+ 
+```{r}
+
+    plot(x,y,type='l',col='green')
+
+    
+    n <- rnorm(100)
+    plot(n)
+    barplot(n)
+    hist(n)
+    boxplot(n)
+```
+
+
+ I got this one from the internet....
+
+```{r}
+  
+    t <- seq(from=-10,to=10, length=1000)
+    x <- sin(t)^3
+    y <- 13 * cos(t) - 5* (cos(2 * t)) - cos(4 * t)
+    plot(x,y, type='l')
+    
+    polygon(x,y,col='red')
+```
+
+## Data frames
+
+Before getting into the real demo, the last thing I wanted to show you
+was the data.frame object.
+
+Rather than having lots of different data variables like my previous
+examples, I can group together lots of variables in one data frame.
+
+
+```{r}
+    my.data <- data.frame(col=rep(c('red','green'),times=120), size=rpois(120, 100))
+    my.data$col
+    
+    #View(my.data)
+    
+    my.data$shape <- rep(c('triangle', 'circle', 'square'))
+```
+
+I can subset a data frame - filter down to rows with particular attributes:
+
+Later on you will see what we can do with these, particularly when we use these to hold external data.
+
+```{r}
+    red.triangles <- my.data[my.data$shape == 'circle' && my.data$col == 'red',]
+    
+    summary(my.data)
+```
