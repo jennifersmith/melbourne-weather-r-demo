@@ -26,7 +26,6 @@ show.month = function(month){
   my.data <- my.data[my.data$Month == month,]
   counts <- table(my.data$Jens.assessment, my.data$Year)
   my.data <- as.data.frame(counts)
-  print(my.data)
   names(my.data)<-c('Assessment', 'Year', 'Freq')
   
   ggplot(data = my.data , aes(x = Year, y = Freq, fill = Assessment)) + 
